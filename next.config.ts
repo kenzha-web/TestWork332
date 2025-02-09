@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+	images: {
+		domains: ['openweathermap.org'],
+	},
+	sassOptions: {
+		includePaths: ['./src/pages/styles'],
+	},
 };
 
-export default nextConfig;
+module.exports = nextConfig;
+

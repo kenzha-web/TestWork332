@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Alert } from 'react-bootstrap';
+import React, { useCallback, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import { getForecast } from '@/entities/weather/api';
 import { ForecastItem } from '@/entities/weather/types';
 import SearchBar from '@/features/weather/ui/SearchBar/SearchBar';
@@ -12,24 +12,34 @@ const Forecast: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	
-	const handleCitySelect = async (city: string) => {
+	const handleCitySelect = useCallback(async (city: string) => {
 		setLoading(true);
 		setError('');
 		try {
 			const data = await getForecast(city);
 			setForecastData(data);
 		} catch (err: any) {
-			setError(err.response?.data?.message || 'Ошибка при получении прогноза');
+			setError('Ошибка при получении прогноза');
 			setForecastData([]);
 		}
 		setLoading(false);
-	};
+	}, []);
+	
+	const clearError = useCallback(() => {
+		setError('');
+	}, []);
 	
 	return (
 		<Container className="mt-4">
-			<SearchBar onCitySelect={handleCitySelect} />
+			<SearchBar
+				onSearch={handleCitySelect}
+				error={error || undefined}
+				loading={loading}
+				onClearError={clearError}
+			/>
+			
 			{loading && <LoadingSpinner />}
-			{error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+			
 			{forecastData.length > 0 && (
 				<>
 					<div className="mt-3">

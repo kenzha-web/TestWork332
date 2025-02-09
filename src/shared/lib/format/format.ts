@@ -6,10 +6,3 @@ export function formatDate(date: Date | string): string {
 		year: 'numeric'
 	}).format(dt);
 }
-
-export function formatCityName(city: string): string {
-	return city
-		.split(' ')
-		.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-		.join(' ');
-}

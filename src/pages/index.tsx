@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Container, Alert } from 'react-bootstrap';
 import { getCurrentWeather } from '@/entities/weather/api';
 import { CurrentWeather } from '@/entities/weather/types';
@@ -11,28 +11,37 @@ const Home: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	
-	const handleCitySelect = async (city: string) => {
+	const handleSearch = useCallback(async (city: string) => {
 		setLoading(true);
 		setError('');
 		try {
 			const data = await getCurrentWeather(city);
 			setWeatherData(data);
 		} catch (err: any) {
-			setError(err.response?.data?.message || 'Ошибка при получении данных');
+			setError('Ошибка при получении прогноза');
 			setWeatherData(null);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
-	};
+	}, []);
+	
+	const clearError = useCallback(() => {
+		setError('');
+	}, []);
 	
 	return (
 		<Container className="mt-4">
-			<SearchBar onCitySelect={handleCitySelect} />
+			<SearchBar
+				onSearch={handleSearch}
+				error={error || undefined}
+				loading={loading}
+				onClearError={clearError}
+			/>
+			
 			{loading && <LoadingSpinner />}
-			{error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+			
 			{weatherData && !loading && !error && (
-				<div className="mt-3">
-					<WeatherCard weatherData={weatherData} />
-				</div>
+				<WeatherCard weatherData={weatherData} />
 			)}
 		</Container>
 	);

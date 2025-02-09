@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Container, Alert, Row, Col } from 'react-bootstrap';
 import { getCurrentWeather } from '@/entities/weather/api';
 import { CurrentWeather } from '@/entities/weather/types';
@@ -12,26 +12,26 @@ const Favorites: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	
+	const fetchFavorites = useCallback(async () => {
+		setLoading(true);
+		setError('');
+		try {
+			const requests = favorites.map((city) => getCurrentWeather(city));
+			const responses = await Promise.all(requests);
+			setFavoritesData(responses);
+		} catch (err: any) {
+			setError('Ошибка при получении данных избранных городов');
+		}
+		setLoading(false);
+	}, [favorites]);
+	
 	useEffect(() => {
-		const fetchFavorites = async () => {
-			setLoading(true);
-			setError('');
-			try {
-				const requests = favorites.map((city) => getCurrentWeather(city));
-				const responses = await Promise.all(requests);
-				setFavoritesData(responses);
-			} catch (err: any) {
-				setError('Ошибка при получении данных избранных городов');
-			}
-			setLoading(false);
-		};
-		
 		if (favorites.length > 0) {
 			fetchFavorites();
 		} else {
 			setFavoritesData([]);
 		}
-	}, [favorites]);
+	}, [favorites, fetchFavorites]);
 	
 	return (
 		<Container className="mt-4">
@@ -51,3 +51,4 @@ const Favorites: React.FC = () => {
 };
 
 export default Favorites;
+
