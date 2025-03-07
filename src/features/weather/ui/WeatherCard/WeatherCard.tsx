@@ -1,9 +1,9 @@
-import React, { memo, useCallback } from 'react';
-import Image from 'next/image';
-import { Card, Button } from 'react-bootstrap';
-import { useWeatherStore } from '@/shared/store/useWeatherStore';
-import { CurrentWeather } from '@/entities/weather/types';
-import styles from './WeatherCard.module.scss';
+import React, { memo, useCallback } from "react";
+import Image from "next/image";
+import { Card, Button } from "react-bootstrap";
+import { useWeatherStore } from "@/shared/store/useWeatherStore";
+import { CurrentWeather } from "@/entities/weather/types";
+import styles from "./WeatherCard.module.scss";
 
 interface WeatherCardProps {
 	weatherData: CurrentWeather;
@@ -36,11 +36,11 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherData }) => {
 					height={100}
 				/>
 				<Button
-					variant={isFavorite ? 'danger' : 'outline-primary'}
+					variant={isFavorite ? "danger" : "outline-primary"}
 					onClick={handleFavoriteToggle}
 					className="mt-2"
 				>
-					{isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+					{isFavorite ? "Удалить из избранного" : "Добавить в избранное"}
 				</Button>
 			</Card.Body>
 		</Card>

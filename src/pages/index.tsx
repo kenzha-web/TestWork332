@@ -1,24 +1,24 @@
-import React, { useCallback, useState } from 'react';
-import { Container, Alert } from 'react-bootstrap';
-import { getCurrentWeather } from '@/entities/weather/api';
-import { CurrentWeather } from '@/entities/weather/types';
-import SearchBar from '@/features/weather/ui/SearchBar/SearchBar';
-import WeatherCard from '@/features/weather/ui/WeatherCard/WeatherCard';
-import LoadingSpinner from '@/shared/ui/Loader/LoadingSpinner';
+import React, { useCallback, useState } from "react";
+import { Container, Alert } from "react-bootstrap";
+import { getCurrentWeather } from "@/entities/weather/api";
+import { CurrentWeather } from "@/entities/weather/types";
+import SearchBar from "@/features/weather/ui/SearchBar/SearchBar";
+import WeatherCard from "@/features/weather/ui/WeatherCard/WeatherCard";
+import LoadingSpinner from "@/shared/ui/Loader/LoadingSpinner";
 
 const Home: React.FC = () => {
 	const [weatherData, setWeatherData] = useState<CurrentWeather | null>(null);
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState('');
+	const [error, setError] = useState("");
 	
 	const handleSearch = useCallback(async (city: string) => {
 		setLoading(true);
-		setError('');
+		setError("");
 		try {
 			const data = await getCurrentWeather(city);
 			setWeatherData(data);
 		} catch (err: any) {
-			setError('Ошибка при получении прогноза');
+			setError("Ошибка при получении прогноза");
 			setWeatherData(null);
 		} finally {
 			setLoading(false);
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 	}, []);
 	
 	const clearError = useCallback(() => {
-		setError('');
+		setError("");
 	}, []);
 	
 	return (

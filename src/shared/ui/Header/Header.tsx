@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import Link from "next/link";
+import { Navbar, Nav, Container } from "react-bootstrap";
 
 const Header: React.FC = () => {
 	return (

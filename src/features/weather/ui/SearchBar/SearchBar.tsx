@@ -1,6 +1,6 @@
-import React, {memo, useCallback, useState} from 'react';
-import { Alert, Button, Form, InputGroup } from 'react-bootstrap';
-import CityAutocomplete from '@/widgets/autocomplete/CityAutocomplete';
+import React, {memo, useCallback, useState} from "react";
+import { Alert, Button, Form, InputGroup } from "react-bootstrap";
+import CityAutocomplete from "@/widgets/autocomplete/CityAutocomplete";
 
 interface SearchBarProps {
 	onSearch: (city: string) => Promise<void>;
@@ -10,7 +10,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, error, loading, onClearError }) => {
-	const [query, setQuery] = useState('');
+	const [query, setQuery] = useState("");
 	const [localError, setLocalError] = useState<string | null>(null);
 	const [autocompleteError, setAutocompleteError] = useState<string | null>(null);
 	
@@ -21,13 +21,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, error, loading, onClear
 		setLocalError(null);
 		setAutocompleteError(null);
 		
-		if (autocompleteError === 'Ничего не найдено') {
-			setLocalError('Некорректное название города');
+		if (autocompleteError === "Ничего не найдено") {
+			setLocalError("Некорректное название города");
 			return;
 		}
 		
 		if (!trimmedQuery) {
-			setLocalError('Введите название города');
+			setLocalError("Введите название города");
 			return;
 		}
 		
@@ -60,12 +60,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, error, loading, onClear
 					<Button
 						variant="primary"
 						type="submit"
-						disabled={loading || autocompleteError === 'Ничего не найдено'}
-						style={{ minWidth: '100px' }}
+						disabled={loading || autocompleteError === "Ничего не найдено"}
+						style={{ minWidth: "100px" }}
 					>
 						{loading ? (
 							<span className="spinner-border spinner-border-sm" role="status" />
-						) : 'Поиск'}
+						) : "Поиск"}
 					</Button>
 				</InputGroup>
 			</Form>

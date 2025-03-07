@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { CurrentWeather, ForecastItem, CitySuggestion } from './types';
+import axios from "axios";
+import { CurrentWeather, ForecastItem, CitySuggestion } from "./types";
 import {API_KEY, BASE_URL} from "@/shared/const/constant";
 
 export async function getCurrentWeather(city: string): Promise<CurrentWeather> {
@@ -7,7 +7,7 @@ export async function getCurrentWeather(city: string): Promise<CurrentWeather> {
 		params: {
 			q: city,
 			appid: API_KEY,
-			units: 'metric',
+			units: "metric",
 		},
 	});
 	return response.data;
@@ -18,10 +18,10 @@ export async function getForecast(city: string): Promise<ForecastItem[]> {
 		params: {
 			q: city,
 			appid: API_KEY,
-			units: 'metric',
+			units: "metric",
 		},
 	});
-	return response.data.list.filter((item) => item.dt_txt.includes('12:00:00'));
+	return response.data.list.filter((item) => item.dt_txt.includes("12:00:00"));
 }
 
 export async function getCitySuggestions(query: string): Promise<CitySuggestion[]> {

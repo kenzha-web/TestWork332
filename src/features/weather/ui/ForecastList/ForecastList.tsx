@@ -1,7 +1,7 @@
-import React, {memo} from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
-import Image from 'next/image';
-import { ForecastItem } from '@/entities/weather/types';
+import React, {memo} from "react";
+import { Card, Row, Col } from "react-bootstrap";
+import Image from "next/image";
+import { ForecastItem } from "@/entities/weather/types";
 import {formatDate} from "@/shared/lib/format/format";
 
 interface ForecastListProps {

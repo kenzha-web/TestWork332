@@ -1,26 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Container, Alert, Row, Col } from 'react-bootstrap';
-import { getCurrentWeather } from '@/entities/weather/api';
-import { CurrentWeather } from '@/entities/weather/types';
-import { useWeatherStore } from '@/shared/store/useWeatherStore';
-import WeatherCard from '@/features/weather/ui/WeatherCard/WeatherCard';
-import LoadingSpinner from '@/shared/ui/Loader/LoadingSpinner';
+import React, { useCallback, useEffect, useState } from "react";
+import { Container, Alert, Row, Col } from "react-bootstrap";
+import { getCurrentWeather } from "@/entities/weather/api";
+import { CurrentWeather } from "@/entities/weather/types";
+import { useWeatherStore } from "@/shared/store/useWeatherStore";
+import WeatherCard from "@/features/weather/ui/WeatherCard/WeatherCard";
+import LoadingSpinner from "@/shared/ui/Loader/LoadingSpinner";
 
 const Favorites: React.FC = () => {
 	const { favorites } = useWeatherStore();
 	const [favoritesData, setFavoritesData] = useState<CurrentWeather[]>([]);
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState('');
+	const [error, setError] = useState("");
 	
 	const fetchFavorites = useCallback(async () => {
 		setLoading(true);
-		setError('');
+		setError("");
 		try {
 			const requests = favorites.map((city) => getCurrentWeather(city));
 			const responses = await Promise.all(requests);
 			setFavoritesData(responses);
 		} catch (err: any) {
-			setError('Ошибка при получении данных избранных городов');
+			setError("Ошибка при получении данных избранных городов");
 		}
 		setLoading(false);
 	}, [favorites]);

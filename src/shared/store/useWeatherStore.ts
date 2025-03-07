@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface WeatherStore {
 	favorites: string[];
@@ -20,6 +20,6 @@ export const useWeatherStore = create<WeatherStore>()(
 					favorites: state.favorites.filter((fav) => fav !== city),
 				})),
 		}),
-		{ name: 'weather-store' }
+		{ name: "weather-store" }
 	)
 );

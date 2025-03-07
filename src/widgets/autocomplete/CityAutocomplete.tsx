@@ -1,8 +1,8 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
-import { ListGroup, Alert } from 'react-bootstrap';
-import { getCitySuggestions } from '@/entities/weather/api';
-import { CitySuggestion } from '@/entities/weather/types';
-import { debounce } from '@/shared/lib/debounce/debounce';
+import React, {memo, useCallback, useEffect, useState} from "react";
+import { ListGroup, Alert } from "react-bootstrap";
+import { getCitySuggestions } from "@/entities/weather/api";
+import { CitySuggestion } from "@/entities/weather/types";
+import { debounce } from "@/shared/lib/debounce/debounce";
 
 interface CityAutocompleteProps {
 	query: string;
@@ -32,13 +32,13 @@ const CityAutocomplete: React.FC<CityAutocompleteProps> = ({query, onSelect, dis
 			const data = await getCitySuggestions(q);
 			setSuggestions(data);
 			if (data.length === 0) {
-				setError('Ничего не найдено');
-				if (onError) onError('Ничего не найдено');
+				setError("Ничего не найдено");
+				if (onError) onError("Ничего не найдено");
 			}
 		} catch (error) {
 			console.error(error);
-			setError('Не удалось загрузить подсказки');
-			if (onError) onError('Не удалось загрузить подсказки');
+			setError("Не удалось загрузить подсказки");
+			if (onError) onError("Не удалось загрузить подсказки");
 		} finally {
 			setLoading(false);
 		}
@@ -71,7 +71,7 @@ const CityAutocomplete: React.FC<CityAutocompleteProps> = ({query, onSelect, dis
 							onClick={() => onSelect(city.name)}
 							disabled={disabled}
 						>
-							{city.name}, {city.state ? city.state + ', ' : ''}{city.country}
+							{city.name}, {city.state ? `${city.state  }, ` : ""}{city.country}
 						</ListGroup.Item>
 					))}
 				</ListGroup>
